@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#1a1033">
+<meta name="robots" content="noindex,nofollow">
+<meta name="author" content="Caner Yaşayan">
+<meta name="copyright" content="© 2026 Caner Yaşayan. Tüm hakları saklıdır.">
+<title>Miyacan</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Miyacan">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<style>
+:root{--bg:#1a1033;--bg2:#2b1458;--card:#ffffff14;--line:#ffffff26;--gold:#ffd86b;--text:#f4eeff;--mut:#b9a8e0}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;min-height:100%}
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--text);
+ background:radial-gradient(ellipse at top,var(--bg2),var(--bg) 70%) fixed;padding:env(safe-area-inset-top) 16px 40px;overflow-x:hidden}
+#stars{position:fixed;inset:0;z-index:-1;pointer-events:none}
+.wrap{max-width:520px;margin:0 auto}
+h1{font-size:28px;text-align:center;margin:22px 0 4px;color:var(--gold);letter-spacing:.5px}
+.sub{text-align:center;color:var(--mut);margin:0 0 18px;font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.sign{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 4px;text-align:center;color:var(--text);font:inherit;cursor:pointer;transition:transform .15s,border-color .15s}
+.sign:active{transform:scale(.95)}
+.sign:hover{border-color:var(--gold)}
+.sign .s{font-size:30px;display:block}
+.sign b{display:block;font-size:14px;margin-top:4px}
+.sign small{color:var(--mut);font-size:11px}
+.hide{display:none}
+.top{display:flex;align-items:center;gap:10px;margin:18px 0 6px}
+.back{background:var(--card);border:1px solid var(--line);color:var(--text);border-radius:12px;padding:8px 12px;font:inherit;cursor:pointer}
+.big{font-size:44px}
+.tt b{font-size:22px;color:var(--gold);display:block}
+.tt small{color:var(--mut)}
+.tabs{display:flex;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px;margin-top:10px}
+.tabs button{flex:1;border:0;background:none;color:var(--mut);font:inherit;font-weight:600;padding:10px 4px;border-radius:10px;cursor:pointer}
+.tabs button.on{background:linear-gradient(90deg,#8d5cff,#ff7ab8);color:#fff}
+.range{text-align:center;color:var(--mut);font-size:13px;margin:10px 0 0}
+.box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;margin-top:12px;line-height:1.5}
+.box h3{margin:0 0 6px;font-size:15px;color:var(--gold)}
+.box p{margin:0}
+.row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:12px}
+.mini{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 6px;text-align:center}
+.mini small{display:block;color:var(--mut);font-size:11px}
+.mini b{font-size:16px}
+.dot{display:inline-block;width:14px;height:14px;border-radius:50%;vertical-align:-2px;margin-right:4px;border:1px solid #fff6}
+.meter{height:8px;background:#ffffff1f;border-radius:6px;overflow:hidden;margin-top:6px}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,#ff7ab8,var(--gold))}
+.tarot{perspective:900px;margin:16px auto 0;width:170px;height:260px;cursor:pointer}
+.tarot .in{position:relative;width:100%;height:100%;transition:transform .8s;transform-style:preserve-3d}
+.tarot.flip .in{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:16px;border:2px solid var(--gold);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:10px}
+.back-f{background:repeating-linear-gradient(45deg,#3a1d7a,#3a1d7a 8px,#2b1458 8px,#2b1458 16px);font-size:56px}
+.front-f{background:linear-gradient(160deg,#fff3d1,#ffd86b);color:#2b1458;transform:rotateY(180deg)}
+.front-f .e{font-size:64px}
+.front-f b{font-size:18px;margin-top:8px}
+.hint{text-align:center;color:var(--mut);font-size:13px;margin-top:8px}
+.btn{display:block;width:100%;margin-top:16px;background:linear-gradient(90deg,#8d5cff,#ff7ab8);border:0;color:#fff;font:inherit;font-weight:600;padding:13px;border-radius:14px;cursor:pointer}
+body{padding-bottom:84px}
+.btn:disabled{opacity:.55;cursor:default}
+.lb{display:block;font-size:12px;color:var(--mut);margin-top:12px}
+.lb input[type=checkbox]{width:auto;margin-right:6px}
+.plan{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.plan b{color:var(--gold)}
+.plan+p{margin:2px 0 12px;font-size:14px;color:var(--text)}
+#nav{position:fixed;left:0;right:0;bottom:0;display:flex;gap:4px;padding:6px 10px calc(6px + env(safe-area-inset-bottom));background:#140a2a;border-top:1px solid var(--line);z-index:5}
+#nav button{flex:1;border:0;background:none;color:var(--mut);font:inherit;font-size:11px;padding:6px 2px;border-radius:10px;cursor:pointer}
+#nav button span{display:block;font-size:22px}
+#nav button.on{color:var(--gold);background:#ffffff14}
+select,.inp{width:100%;background:var(--card);border:1px solid var(--line);color:var(--text);font:inherit;font-size:16px;padding:12px;border-radius:12px;margin-top:6px}
+select option{background:#1a1033;color:#fff}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.two label{font-size:12px;color:var(--mut)}
+.bar{margin-top:10px}.bar div{display:flex;justify-content:space-between;font-size:14px}
+.score{text-align:center;font-size:48px;font-weight:700;color:var(--gold);margin:6px 0 0}
+.ball{font-size:110px;text-align:center;margin-top:18px;user-select:none}
+.shake{animation:sh .7s}
+@keyframes sh{0%,100%{transform:rotate(0)}15%{transform:rotate(-14deg) translateX(-8px)}35%{transform:rotate(12deg) translateX(8px)}55%{transform:rotate(-10deg)}75%{transform:rotate(8deg)}}
+.ans{text-align:center;font-size:20px;font-weight:600;color:var(--gold);min-height:56px;margin-top:10px}
+.sym{display:flex;gap:12px;align-items:center;margin-top:10px}.sym i{font-style:normal;font-size:34px}
+</style>
+</head>
+<body>
+<canvas id="stars"></canvas>
+<div class="wrap">
+  <h1>✨ Miyacan</h1>
+  <p class="sub" id="date"></p>
+
+  <div id="v_yorum">
+  <section id="pick">
+    <p class="sub">Burcunu seç</p>
+    <div class="grid" id="grid"></div>
+    <button class="btn hide" id="benimHarita"></button>
+    <button class="btn hide" id="install">📲 Uygulamayı yükle</button>
+    <p class="hint hide" id="iosHint">iPhone'da: alttaki <b>Paylaş</b> düğmesine bas → <b>Ana Ekrana Ekle</b></p>
+    <p class="hint hide" id="andHint">Telefonda: tarayıcı menüsü (⋮) → <b>Uygulamayı yükle</b> / <b>Ana ekrana ekle</b></p>
+  </section>
+
+  <section id="res" class="hide">
+    <div class="top">
+      <button class="back" id="back">← Burçlar</button>
+    </div>
+    <div class="top" style="margin-top:6px">
+      <span class="big" id="sym"></span>
+      <div class="tt"><b id="name"></b><small id="dates"></small></div>
+    </div>
+
+    <div class="tabs" id="tabs">
+      <button data-m="gun" class="on">Günlük</button>
+      <button data-m="hafta">Haftalık</button>
+      <button data-m="yil">Yıllık</button>
+    </div>
+    <p class="range" id="range"></p>
+
+    <div class="box" id="skyBox"><h3 id="h_sky"></h3><p id="sky"></p></div>
+    <div class="box"><h3 id="h_genel"></h3><p id="genel"></p></div>
+    <div class="box" id="askBox"><h3>💖 Aşk</h3>
+      <button class="btn" id="askAc" style="margin-top:6px">Aşk yorumunu görmek için dokun 💗</button>
+      <div id="askSec" class="hide"><p class="hint" style="margin:0 0 8px">Şu an ilişki durumun nedir?</p>
+        <div class="two"><button class="btn" data-d="var" style="margin:0">💑 Sevgilim var</button><button class="btn" data-d="yok" style="margin:0">🙋 Sevgilim yok</button></div></div>
+      <div id="askRes" class="hide"><p id="ask"></p><p class="hint" style="margin-top:8px"><a href="#" id="askDegis" style="color:var(--mut)">Durumu değiştir</a></p></div>
+    </div>
+    <div class="box" id="paraBox"><h3 id="h_para"></h3><p id="para"></p></div>
+    <div class="box" id="sagBox"><h3 id="h_sag"></h3><p id="saglik"></p></div>
+    <div class="box" id="gorevBox"><h3>🎯 Günün mini görevi</h3><p id="gorev"></p></div>
+    <div class="box" id="enBox"><h3 id="h_en"></h3><div class="meter"><i id="enerji"></i></div></div>
+
+    <div class="row">
+      <div class="mini"><small id="l1"></small><b id="v1"></b></div>
+      <div class="mini"><small id="l2"></small><b id="v2"></b></div>
+      <div class="mini"><small>Uyumlu burç</small><b id="uyum"></b></div>
+    </div>
+
+    <div class="box"><h3>📖 Burç profili</h3><p id="prof" style="line-height:1.7"></p></div>
+
+    <div class="box"><h3 id="h_tarot"></h3>
+      <div class="tarot" id="tarot"><div class="in">
+        <div class="face back-f">🌙</div>
+        <div class="face front-f"><span class="e" id="te"></span><b id="tn"></b></div>
+      </div></div>
+      <p class="hint" id="thint">Kartı çevirmek için dokun</p>
+      <p id="tm" style="margin-top:8px;text-align:center"></p>
+    </div>
+
+    <button class="btn" id="share">Arkadaşına gönder 📨</button>
+  </section>
+  </div>
+
+  <div id="v_harita" class="hide">
+    <p class="sub">Doğum bilgini gir; Güneş, Ay, yükselen, Merkür, Venüs ve Mars burçlarını gerçek astronomik hesapla bulalım.</p>
+    <div class="box">
+      <label class="lb">Doğum tarihi</label><input type="date" id="hTarih" class="inp" min="1900-01-01">
+      <label class="lb">Doğum saati</label><input type="time" id="hSaat" class="inp">
+      <label class="lb"><input type="checkbox" id="hBil"> Doğum saatimi bilmiyorum</label>
+      <label class="lb">Doğum yeri</label><select id="hSehir"></select>
+      <button class="btn" id="hBtn">Haritamı çıkar</button>
+      <p class="hint" id="hMesaj"></p>
+    </div>
+    <div id="hRes" class="hide"></div>
+    <p class="hint">Bilgilerin yalnızca bu cihazda saklanır, hiçbir yere gönderilmez.</p>
+  </div>
+
+  <div id="v_uyum" class="hide">
+    <div class="tabs" id="uyTabs" style="margin-bottom:12px">
+      <button data-u="basit" class="on">Burçlara göre</button>
+      <button data-u="kisisel">Doğum bilgisiyle</button>
+    </div>
+    <div id="uyumBasit">
+    <p class="sub">İki burcu seç. Uyum; burçların element, nitelik ve birbirine açısına göre hesaplanır ve her zaman aynıdır.</p>
+    <div class="two">
+      <div><label>1. kişi</label><select id="u1"></select><select id="g1"><option value="">Cinsiyet (isteğe bağlı)</option><option value="k">Kadın</option><option value="e">Erkek</option></select></div>
+      <div><label>2. kişi</label><select id="u2"></select><select id="g2"><option value="">Cinsiyet (isteğe bağlı)</option><option value="k">Kadın</option><option value="e">Erkek</option></select></div>
+    </div>
+    <button class="btn" id="uyumBtn">Uyumu göster</button>
+    <div id="uyumRes" class="hide">
+      <div class="box" style="text-align:center"><h3 id="uyumBas"></h3><p class="score" id="uyumSkor"></p><p id="uyumEtiket" style="font-weight:700;color:var(--gold);margin:0"></p></div>
+      <div class="box">
+        <div class="bar"><div><span>💖 Aşk</span><b id="b1t"></b></div><div class="meter"><i id="b1"></i></div></div>
+        <div class="bar"><div><span>🤝 Arkadaşlık</span><b id="b2t"></b></div><div class="meter"><i id="b2"></i></div></div>
+        <div class="bar"><div><span>💼 İş birliği</span><b id="b3t"></b></div><div class="meter"><i id="b3"></i></div></div>
+      </div>
+      <div class="box"><h3>🪐 Burçlar arasındaki ilişki</h3><p id="uyumAci"></p></div>
+      <div class="box" id="uyumOzelBox"><h3>⭐ Bu çiftin özelliği</h3><p id="uyumOzel"></p></div>
+      <div class="box"><h3>🔥 Element ve nitelik</h3><p id="uyumEl"></p><p id="uyumMod" style="margin-top:6px"></p></div>
+      <div class="box"><h3>💖 İlişki tarzları</h3><p id="uyumA"></p><p id="uyumB" style="margin-top:8px"></p></div>
+      <div class="box"><h3>✅ Güçlü yan</h3><p id="uyumGuc"></p><h3 style="margin-top:10px">⚠️ Dikkat</h3><p id="uyumDik"></p><h3 style="margin-top:10px">💡 Tavsiye</h3><p id="uyumTav"></p></div>
+      <p class="hint">Klasik astrolojide uyum burç çiftine göre hesaplanır; cinsiyet seçimi puanı değiştirmez, yalnızca başlıkta görünür. Güneş burcu bir insanın tamamını anlatmaz: doğum haritasındaki Ay, Venüs ve Mars gibi konumlar da ilişkiyi şekillendirir.</p>
+    </div>
+    </div>
+
+    <div id="uyumKisisel" class="hide">
+      <p class="sub">Kendi haritanla (Harita sekmesi) karşındakinin doğum bilgisini karşılaştırıp Güneş, Ay, Venüs–Mars, Merkür ve yükselen uyumunu hesaplar.</p>
+      <div class="box">
+        <p id="kBen" class="hint" style="margin:0 0 6px"></p>
+        <label class="lb">Karşındakinin doğum tarihi</label><input type="date" id="pTarih" class="inp" min="1900-01-01">
+        <label class="lb">Doğum saati</label><input type="time" id="pSaat" class="inp">
+        <label class="lb"><input type="checkbox" id="pBil"> Saatini bilmiyorum</label>
+        <label class="lb">Doğum yeri</label><select id="pSehir"></select>
+        <button class="btn" id="pBtn">Kişisel uyumu göster</button>
+        <p class="hint" id="pMesaj"></p>
+      </div>
+      <div id="pRes" class="hide"></div>
+    </div>
+  </div>
+
+  <div id="v_soru" class="hide">
+    <p class="sub">Aklından bir evet/hayır sorusu geçir, küreye dokun 🔮</p>
+    <input class="inp" id="soruIn" placeholder="Sorunu yaz" maxlength="80">
+    <div class="ball" id="ball">🔮</div>
+    <p class="ans" id="ans">Küreye dokun</p>
+    <button class="btn" id="soruBtn">Cevabı öğren</button>
+  </div>
+
+  <div id="v_fincan" class="hide">
+    <p class="sub">İçinden bir niyet tut, fincanı çevir ☕</p>
+    <div class="ball" id="cup">☕</div>
+    <button class="btn" id="cupBtn">Fincanı çevir</button>
+    <div class="box hide" id="cupRes"><h3>Fincanda gördüklerim</h3><div id="cupSym"></div><p id="cupSon" style="margin-top:12px"></p></div>
+  </div>
+
+  <nav id="nav">
+    <button data-v="yorum" class="on"><span>🔮</span>Yorum</button>
+    <button data-v="uyum"><span>💞</span>Uyum</button>
+    <button data-v="harita"><span>🗺️</span>Harita</button>
+    <button data-v="soru"><span>🎱</span>Evet/Hayır</button>
+    <button data-v="fincan"><span>☕</span>Kahve falı</button>
+  </nav>
+  <p class="hint" style="margin-top:28px">© 2026 Caner Yaşayan · Tüm hakları saklıdır</p>
+</div>
+
+<script src="icerik.js"></script>
+<script src="astro.js"></script>
+<script src="harita.js"></script>
+<script>
+const SIGNS=[
+["Koç","♈","21 Mart – 19 Nisan"],["Boğa","♉","20 Nisan – 20 Mayıs"],["İkizler","♊","21 Mayıs – 20 Haziran"],
+["Yengeç","♋","21 Haziran – 22 Temmuz"],["Aslan","♌","23 Temmuz – 22 Ağustos"],["Başak","♍","23 Ağustos – 22 Eylül"],
+["Terazi","♎","23 Eylül – 22 Ekim"],["Akrep","♏","23 Ekim – 21 Kasım"],["Yay","♐","22 Kasım – 21 Aralık"],
+["Oğlak","♑","22 Aralık – 19 Ocak"],["Kova","♒","20 Ocak – 18 Şubat"],["Balık","♓","19 Şubat – 20 Mart"]];
+const AYLAR=["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"];
+
+
+function hash(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
+function rng(seed){let a=seed;return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const pick=(r,a)=>a[Math.floor(r()*a.length)];
+const $=id=>document.getElementById(id);
+const now=new Date();
+const dayKey=now.getFullYear()+"-"+(now.getMonth()+1)+"-"+now.getDate();
+// haftanın pazartesisi (hafta anahtarı) ve aralığı
+const mon=new Date(now.getFullYear(),now.getMonth(),now.getDate()-((now.getDay()+6)%7));
+const sun=new Date(mon.getFullYear(),mon.getMonth(),mon.getDate()+6);
+const weekKey=mon.getFullYear()+"-"+(mon.getMonth()+1)+"-"+mon.getDate();
+const fmt=d=>d.getDate()+" "+AYLAR[d.getMonth()];
+const YEAR=now.getFullYear();
+
+$("date").textContent=now.toLocaleDateString("tr-TR",{weekday:"long",day:"numeric",month:"long"});
+
+SIGNS.forEach((s,i)=>{
+  const b=document.createElement("button");b.className="sign";
+  b.innerHTML=`<span class="s">${s[1]}</span><b>${s[0]}</b><small>${s[2].split(" – ")[0]}</small>`;
+  b.onclick=()=>show(i,"gun");$("grid").appendChild(b);
+});
+
+let cur=0,mode="gun",curView="yorum",curUy="basit",geriYukleniyor=false;
+// Geri tuşu: uygulamanın kendi ekranları tarayıcı geçmişine yazılır, geri tuşu bir önceki ekrana döner
+const durum=()=>({v:curView,res:!$("res").classList.contains("hide"),i:cur,m:mode,u:curUy});
+const gecmisYaz=()=>{if(!geriYukleniyor)try{history.pushState(durum(),"")}catch(e){}};
+const cap=s=>s.charAt(0).toLocaleUpperCase("tr")+s.slice(1);
+const AYYIL=now.getMonth()>=10?YEAR+1:YEAR; // Kasım'dan sonra gelecek yılın yorumu gösterilir
+// Kayıtlı doğum bilgisi (yalnızca bu cihazda tutulur)
+let askMetin=null; // günün aşk metinleri {var, yok}; ilişki durumu seçilince biri gösterilir
+const ASK_KEY="miyacan_ask_durum";
+const askDurum=()=>{try{return localStorage.getItem(ASK_KEY)}catch(e){return null}};
+function askKapat(){$("askAc").classList.remove("hide");$("askSec").classList.add("hide");$("askRes").classList.add("hide")}
+function askGoster(d){$("ask").textContent=askMetin[d];$("askAc").classList.add("hide");$("askSec").classList.add("hide");$("askRes").classList.remove("hide")}
+const PROF_KEY="miyacan_profil";
+function profilOku(){try{return JSON.parse(localStorage.getItem(PROF_KEY)||"null")}catch(e){return null}}
+function benimHarita(){const p=profilOku();if(!p)return null;try{return dogumHaritasi(p)}catch(e){return null}}
+const jdOf=d=>d.getTime()/86400000+2440587.5;
+const retroBilgi=d=>{const J=jdOf(new Date(d.getFullYear(),d.getMonth(),d.getDate(),12));return retroMu("merkur",J)?gezegenBurc("merkur",J):-1};
+function show(i,m){
+  cur=i;mode=m;
+  const s=SIGNS[i],D=SD[i];
+  const key={gun:dayKey,hafta:weekKey,yil:String(AYYIL)}[m];
+  const r=rng(hash(m+"|"+key+"|"+i));
+  try{localStorage.setItem("burc",i)}catch(e){}
+  $("sym").textContent=s[1];$("name").textContent=s[0];$("dates").textContent=s[2];
+  document.querySelectorAll("#tabs button").forEach(b=>b.classList.toggle("on",b.dataset.m===m));
+  $("prof").innerHTML=`<b>${D.el} · ${D.mod} · Yönetici: ${D.rul}</b><br>Anahtar kelimeler: ${D.anahtar}.<br>Güçlü yanları: ${D.guc}.<br>Zorlandığı yanlar: ${D.zayif}.<br>Taşı: ${D.tas}.`;
+
+  const P={
+    gun:{g:[G_A,G_B,G_C],ask:{var:G_ASK_VAR,yok:G_ASK_YOK},hg:"🔮 Günün genel yorumu",ht:"🃏 Günün tarot kartı",range:"Bugün · "+fmt(now)},
+    hafta:{g:[H_A,H_B,H_C],ask:{var:H_ASK_VAR,yok:H_ASK_YOK},hg:"🔮 Haftanın genel yorumu",ht:"🃏 Haftanın tarot kartı",range:"Bu hafta · "+fmt(mon)+" – "+fmt(sun)},
+    yil:{g:[Y_A,Y_B,Y_C],ask:{var:Y_ASK_VAR,yok:Y_ASK_YOK},para:Y_KAR,sag:Y_SAG,hs:"🌿 Sağlık",hg:"🔮 "+AYYIL+" yılı genel yorumu",hp:"💼 Kariyer ve para",ht:"🃏 Yılın tarot kartı",range:AYYIL+" yılı"}
+  }[m];
+  $("range").textContent=P.range;
+
+  // Gökyüzü kutusu yalnızca günlükte: Ay'ın parlaklığı ve burcu her gün değişir
+  const gunluk=m==="gun";
+  $("skyBox").classList.toggle("hide",!gunluk);$("enBox").classList.toggle("hide",!gunluk);
+  let sky="";
+  if(gunluk){
+    // Her burç için ayrı gün puanı. Ay'ın "sana yansıyan parlaklığı" da aynı sayıdır.
+    const a=ayBilgi(new Date(now.getFullYear(),now.getMonth(),now.getDate(),12));
+    const guzel=gunPuani(i,a.burc,a.aydinlik,dayKey);
+    const k=guzel<45?0:guzel<60?1:guzel<75?2:guzel<90?3:4;
+    const faz=(Math.acos(1-2*guzel/100)/(Math.PI/180)),ph=a.evre<180?faz:360-faz; // simge: büyüyen/küçülen yönü gerçek Ay'dan
+    const tarih=now.toLocaleDateString("tr-TR",{day:"numeric",month:"long",weekday:"long"});
+    const ilk=`${tarih}, ${s[0]} için %${guzel} güzel bir gün.`;
+    const ruhE=pick(r,RUH_ETIKET[k]),ruhM=pick(r,RUH_METIN[k]),yorum=pick(r,GUN_YORUM[k]);
+    const satir=[`Ay ${SIGNS[a.burc][0]} burcunda: ${AY_BURC_TXT[a.burc]}`];
+    const rb=retroBilgi(now);
+    if(rb>=0)satir.push(`Merkür geri hareketli (retro), ${SIGNS[rb][0]} burcunda: yazışma, sözleşme ve planlarda dikkat; yeniden gözden geçirme dönemi.`);
+    const pf=benimHarita();
+    if(pf&&pf.yuk!=null&&pf.gunes===i)satir.push(`Yükselenin ${SIGNS[pf.yuk][0]}: ${EV_AY[evNo(pf.yuk,a.burc)-1]}`);
+    sky=`${ilk}\nAy senin için %${guzel} parlıyor.\n${ruhE}\n${ruhM}\n${yorum}\n`+satir.join("\n");
+    $("sky").innerHTML=`<b style="color:var(--gold);font-size:17px">${ilk}</b>`+
+      `<span style="display:flex;align-items:center;gap:12px;margin:12px 0">${aySvg(ph)}<span>Ay senin için %${guzel} parlıyor.<br><small style="color:var(--mut)">Ay'ın burcunla ilişkisine göre sana yansıyan parlaklık.</small></span></span>`+
+      `<div style="margin:6px 0 10px"><b style="color:var(--gold)">${ruhE}</b><br>${ruhM}<br>${yorum}</div>`+satir.join("<br>");
+    $("h_sky").textContent="🌙 Bugünün gökyüzü ve ruh halin";
+    $("h_en").textContent="⚡ Günün enerjisi";$("enerji").style.width=guzel+"%";
+  }
+
+  const genel=pick(r,P.g[0])+" "+pick(r,P.g[1])+" "+pick(r,P.g[2])+" "+pick(r,SIGN_NOTE[i]);
+  $("h_genel").textContent=P.hg;if(P.para)$("h_para").textContent=P.hp;$("h_tarot").textContent=P.ht;
+  $("genel").textContent=genel;
+  askMetin={var:pick(r,P.ask.var),yok:pick(r,P.ask.yok)};askKapat();$("paraBox").classList.toggle("hide",!P.para);if(P.para)$("para").textContent=pick(r,P.para);$("sagBox").classList.toggle("hide",!P.sag);if(P.sag){$("h_sag").textContent=P.hs;$("saglik").textContent=pick(r,P.sag)}
+  $("gorevBox").classList.toggle("hide",m!=="gun");$("gorev").textContent=pick(r,GOREV);
+
+  // Şanslı değerler burcun kendi bilgisinden gelir (yönetici gezegen günü, burç sayısı ve rengi)
+  const renk=`<span class="dot" style="background:${D.renk[1]}"></span>${D.renk[0]}`;
+  if(m==="gun"){$("l1").textContent="Şanslı sayı";$("v1").textContent=D.say;$("l2").textContent="Burç rengi";$("v2").innerHTML=renk}
+  else if(m==="hafta"){$("l1").textContent="Şanslı gün";$("v1").textContent=D.gun;$("l2").textContent="Burç rengi";$("v2").innerHTML=renk}
+  else{const ay=s[2].split(" – ").map(x=>x.split(" ")[1]);$("l1").textContent="Burç sezonun";$("v1").textContent=ay[0]+"–"+ay[1];$("l2").textContent="Yönetici gezegen";$("v2").textContent=D.rul}
+  const uy=enUyumluBurc(i); // burcun en uyumlu eşi: sabit, her sekmede aynı
+  $("uyum").textContent=SIGNS[uy][1]+" "+SIGNS[uy][0];
+
+  const t=TAROT[Math.floor(r()*TAROT.length)];
+  $("te").textContent=t[1];$("tn").textContent=t[0];$("tm").textContent=t[2];
+  $("tarot").classList.remove("flip");$("thint").textContent="Kartı çevirmek için dokun";
+  $("pick").classList.add("hide");$("res").classList.remove("hide");gecmisYaz();
+  window.__txt=`${s[1]} ${s[0]} – ${P.range}\n${sky?sky.split("\n")[0]+"\n":""}${genel}\n\nMiyacan: ${location.origin}${location.pathname}`;
+}
+$("askAc").onclick=()=>{const d=askDurum();if(d)askGoster(d);else{$("askAc").classList.add("hide");$("askSec").classList.remove("hide")}};
+$("askSec").onclick=e=>{const d=e.target.dataset&&e.target.dataset.d;if(!d)return;try{localStorage.setItem(ASK_KEY,d)}catch(x){}askGoster(d)};
+$("askDegis").onclick=e=>{e.preventDefault();$("askRes").classList.add("hide");$("askSec").classList.remove("hide")};
+$("tabs").onclick=e=>{const m=e.target.dataset&&e.target.dataset.m;if(m&&m!==mode)show(cur,m)};
+// "← Burçlar": tek dokunuşla açılış (burç seçme) ekranına döner
+function anaEkran(){
+  geriYukleniyor=true;
+  try{go("yorum");$("res").classList.add("hide");$("pick").classList.remove("hide");window.scrollTo(0,0)}finally{geriYukleniyor=false}
+  gecmisYaz();
+}
+$("back").onclick=anaEkran;
+$("tarot").onclick=()=>{$("tarot").classList.toggle("flip");$("thint").textContent=""};
+$("share").onclick=async()=>{
+  try{ if(navigator.share) await navigator.share({text:window.__txt}); else {await navigator.clipboard.writeText(window.__txt);$("share").textContent="Kopyalandı ✅"} }catch(e){}
+};
+
+function go(v){const degisti=v!==curView;curView=v;if(degisti)gecmisYaz();["yorum","uyum","harita","soru","fincan"].forEach(x=>$("v_"+x).classList.toggle("hide",x!==v));document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.v===v));window.scrollTo(0,0)}
+$("nav").onclick=e=>{const b=e.target.closest("button");if(b)go(b.dataset.v)};
+["u1","u2"].forEach((id,k)=>{SIGNS.forEach((x,i)=>$(id).add(new Option(x[1]+" "+x[0],i)));$(id).value=k?6:0});
+const etk=(i,g)=>SIGNS[i][0]+(g==="e"?" erkeği":g==="k"?" kadını":"");
+$("uyumBtn").onclick=()=>{
+  const a=+$("u1").value,b=+$("u2").value,u=uyumHesap(a,b),A=etk(a,$("g1").value),B=etk(b,$("g2").value);
+  $("uyumBas").textContent=SIGNS[a][1]+" "+A+"  ×  "+SIGNS[b][1]+" "+B;
+  $("uyumSkor").textContent="%"+u.genel;$("uyumEtiket").textContent=u.etiket;
+  [u.ask,u.dost,u.is].forEach((x,i)=>{$("b"+(i+1)).style.width=x+"%";$("b"+(i+1)+"t").textContent="%"+x});
+  $("uyumAci").textContent=u.asp.ad+": "+u.asp.anlam;
+  $("uyumOzel").textContent=u.ozel;$("uyumOzelBox").classList.toggle("hide",!u.ozel);
+  $("uyumEl").textContent=u.elTxt;$("uyumMod").textContent=u.modTxt;
+  $("uyumA").textContent=A+": "+SD[a].ask;$("uyumB").textContent=B+": "+SD[b].ask;
+  $("uyumGuc").textContent=u.asp.guc;$("uyumDik").textContent=u.asp.dikkat;$("uyumTav").textContent=u.asp.tavsiye;
+  $("uyumRes").classList.remove("hide");
+};
+// ---- Doğum haritası ve kişisel uyum ----
+SEHIRLER.forEach((c,i)=>["hSehir","pSehir"].forEach(id=>$(id).add(new Option(c[0],i))));
+$("hSehir").value=$("pSehir").value=SEHIRLER.findIndex(c=>c[0]==="İstanbul");
+function girisOku(p,mesaj){
+  const t=$(p+"Tarih").value;
+  if(!t){$(mesaj).textContent="Doğum tarihini seç.";return null}
+  const [y,m,d]=t.split("-").map(Number);
+  if(y<1900||y>now.getFullYear()){$(mesaj).textContent="1900 ile bugün arasında bir tarih gir.";return null}
+  const bil=$(p+"Bil").checked||!$(p+"Saat").value;
+  const [h,mi]=bil?[null,0]:$(p+"Saat").value.split(":").map(Number);
+  $(mesaj).textContent="";
+  return {y,m,d,h,mi,sehir:+$(p+"Sehir").value};
+}
+const der=x=>Math.floor(x)+"°";
+function haritaHtml(c){
+  const sat=(ad,i,d,txt,not)=>`<div class="plan"><span>${ad}</span><b>${SIGNS[i][1]} ${SIGNS[i][0]}${d!=null?" "+der(d):""}</b></div><p>${txt}${not?` <i style="color:var(--mut)">${not}</i>`:""}</p>`;
+  const sinir=c.gunesD<0.7||c.gunesD>29.3?"Burç sınırına çok yakınsın; doğum saati ve yeri sonucu değiştirebilir.":"";
+  const ayNot=c.saatVar||c.ayKesin?"":`Ay o gün ${SIGNS[c.ayA][0]} ile ${SIGNS[c.ayB][0]} arasında geçti; kesin burç için doğum saati gerekir.`;
+  const gez=(c.saatVar||c.merkurKesin&&c.venusKesin)?"":"Merkür ya da Venüs o gün burç değiştirdi; kesin sonuç için doğum saati gerekir.";
+  return `<div class="box"><h3>🗺️ Doğum haritan</h3>`+
+    sat("☀️ Güneş",c.gunes,c.gunesD,`${cap(SD[c.gunes].anahtar)}; güçlü yanların: ${SD[c.gunes].guc}.`,sinir)+
+    sat("🌙 Ay",c.ay,c.saatVar?c.ayD:null,DOGUM_AY[c.ay],ayNot)+
+    (c.yuk!=null?sat("🌅 Yükselen",c.yuk,c.yukD,DOGUM_YUK[c.yuk]):`<div class="plan"><span>🌅 Yükselen</span><b>—</b></div><p>Yükselen burç için doğum saati gerekir.</p>`)+
+    sat("☿ Merkür",c.merkur,null,DOGUM_MER[c.merkur],gez)+
+    sat("♀ Venüs",c.venus,null,DOGUM_VEN[c.venus])+
+    sat("♂ Mars",c.mars,null,DOGUM_MAR[c.mars])+`</div>`;
+}
+function profilUI(){
+  const p=profilOku(),c=p?benimHarita():null,b=$("benimHarita");
+  if(!c){b.classList.add("hide");$("kBen").textContent="Önce Harita sekmesinde kendi doğum bilgini gir.";return}
+  b.textContent=`✨ Kendi haritamla oku: ☀️ ${SIGNS[c.gunes][0]} · 🌙 ${SIGNS[c.ay][0]}`+(c.yuk!=null?` · 🌅 ${SIGNS[c.yuk][0]}`:"");
+  b.classList.remove("hide");b.onclick=()=>show(c.gunes,"gun");
+  $("kBen").textContent=`Senin haritan: ☀️ ${SIGNS[c.gunes][0]} · 🌙 ${SIGNS[c.ay][0]}`+(c.yuk!=null?` · 🌅 ${SIGNS[c.yuk][0]}`:" (saat yok: yükselen hesaba katılmaz)");
+  $("hTarih").value=`${p.y}-${String(p.m).padStart(2,"0")}-${String(p.d).padStart(2,"0")}`;
+  $("hSaat").value=p.h!=null?`${String(p.h).padStart(2,"0")}:${String(p.mi).padStart(2,"0")}`:"";
+  $("hBil").checked=p.h==null;$("hSehir").value=p.sehir;
+  $("hRes").innerHTML=haritaHtml(c);$("hRes").classList.remove("hide");
+}
+$("hBtn").onclick=()=>{
+  const g=girisOku("h","hMesaj");if(!g)return;
+  try{localStorage.setItem(PROF_KEY,JSON.stringify(g))}catch(e){}
+  try{$("hRes").innerHTML=haritaHtml(dogumHaritasi(g));$("hRes").classList.remove("hide");profilUI()}
+  catch(e){$("hMesaj").textContent="Hesaplanamadı, bilgileri kontrol et."}
+};
+function uyAc(u){curUy=u;
+  document.querySelectorAll("#uyTabs button").forEach(b=>b.classList.toggle("on",b.dataset.u===u));
+  $("uyumBasit").classList.toggle("hide",u!=="basit");$("uyumKisisel").classList.toggle("hide",u!=="kisisel");profilUI()}
+$("uyTabs").onclick=e=>{const u=e.target.dataset&&e.target.dataset.u;if(!u||u===curUy)return;uyAc(u);gecmisYaz()};
+$("pBtn").onclick=()=>{
+  const ben=benimHarita();
+  if(!ben){$("pMesaj").textContent="Önce Harita sekmesinde kendi doğum bilgini gir.";return}
+  const g=girisOku("p","pMesaj");if(!g)return;
+  const B=dogumHaritasi(g),u=kisiselUyum(ben,B),S=i=>SIGNS[i][1]+" "+SIGNS[i][0];
+  const detay={gunes:d=>`${S(d[0])} × ${S(d[1])}`,ay:d=>`${S(d[0])} × ${S(d[1])}`,mer:d=>`${S(d[0])} × ${S(d[1])}`,
+    venmar:d=>`Senin Venüs'ün ${S(d[0])} × onun Mars'ı ${S(d[1])}; onun Venüs'ü ${S(d[2])} × senin Mars'ın ${S(d[3])}`,
+    yuk:d=>`Senin yükselenin ${S(d[0])} × onun Güneşi ${S(d[1])}; onun yükselenin ${S(d[2])} × senin Güneşin ${S(d[3])}`};
+  const notlar=[];
+  if(B.yuk==null)notlar.push("Karşındakinin doğum saati bilinmediği için yükselen hesaba katılmadı.");
+  if(B.yuk==null&&B.ayKesin===false)notlar.push("Ay burcu da kesin değil (o gün burç değiştirdi).");
+  $("pRes").innerHTML=`<div class="box" style="text-align:center"><h3>Kişisel uyum</h3><p class="score">%${u.genel}</p><p style="font-weight:700;color:var(--gold);margin:0">${u.etiket}</p></div>`+
+    u.par.map(p=>`<div class="box"><div class="bar" style="margin-top:0"><div><span>${SYN_BASLIK[p.k]}</span><b>%${p.skor}</b></div><div class="meter"><i style="width:${p.skor}%"></i></div></div><p style="margin-top:8px">${p.metin}</p><p class="hint" style="text-align:left;margin-top:4px">${detay[p.k](p.detay)}</p></div>`).join("")+
+    (notlar.length?`<p class="hint">${notlar.join(" ")}</p>`:"")+
+    `<p class="hint">Skor; Güneş, Ay, Venüs–Mars, Merkür ve (varsa) yükselen eşleşmelerinin ağırlıklı ortalamasıdır ve her zaman aynıdır.</p>`;
+  $("pRes").classList.remove("hide");
+};
+profilUI();
+function shake(el){el.classList.remove("shake");void el.offsetWidth;el.classList.add("shake")}
+// Evet/Hayır: soru "olumlu hâline" çevrilir (kötü→iyi, zor→kolay...), o günün cevabı belirlenir,
+// soruda zıt kelime varsa cevap tersine döner. Böylece "yarın iyi mi geçecek" hayırsa "yarın kötü mü geçecek" evettir.
+const norm=s=>s.toLocaleLowerCase("tr").replace(/[^\p{L}\p{N} ]/gu,"").replace(/\s+/g," ").trim();
+function kanon(q){
+  let flip=0;
+  const t=[...new Set(q.split(" ").filter(w=>w&&!EH_DOLGU.includes(w)).map(w=>{
+    for(const [n,p] of EH_ZIT)if(w.startsWith(n)){flip++;return p+w.slice(n.length)}
+    return w}))].sort();
+  return [t.join(" "),flip%2];
+}
+function soru(){
+  const q=norm($("soruIn").value),a=$("ans");
+  const [key,flip]=q?kanon(q):["gunluk",0];
+  const olumlu=rng(hash("eh|"+dayKey+"|"+key))()<.5;
+  const evet=olumlu!==(flip===1);
+  const r=rng(hash("ehs|"+dayKey+"|"+(q||"bos")));
+  const text=pick(r,EH_A)+" "+pick(r,evet?EH_YES:EH_NO)+(r()<.7?" "+pick(r,evet?EH_YES_C:EH_NO_C):"");
+  a.textContent="…";shake($("ball"));
+  setTimeout(()=>{a.textContent=text},700);
+}
+$("ball").onclick=soru;$("soruBtn").onclick=soru;
+// Kahve falı: istediğin kadar çevir, sonuç cihaz + güne göre sabit; o gün hep aynı fal çıkar.
+function devId(){try{let d=localStorage.getItem("mid");if(!d){d=Math.random().toString(36).slice(2);localStorage.setItem("mid",d)}return d}catch(e){return"x"}}
+function fincanGoster(){
+  const r=rng(hash("fincan|"+dayKey+"|"+devId())),a=SEMBOL.slice(),p=[];
+  for(let k=0;k<3;k++)p.push(a.splice(Math.floor(r()*a.length),1)[0]);
+  $("cupSym").innerHTML=p.map(s=>`<div class="sym"><i>${s[1]}</i><div><b>${s[0]}</b><br>${s[2]}</div></div>`).join("");
+  $("cupSon").textContent=pick(r,FSON);
+  $("cupRes").classList.remove("hide");
+  $("cupBtn").textContent="Tekrar çevir";
+}
+function fincan(){shake($("cup"));$("cupRes").classList.add("hide");setTimeout(fincanGoster,700)}
+$("cup").onclick=fincan;$("cupBtn").onclick=fincan;
+
+// Yıldızlar
+(function(){
+  const c=$("stars"),x=c.getContext("2d");let st=[];
+  function size(){c.width=innerWidth;c.height=innerHeight;st=Array.from({length:70},()=>({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.6+.3,p:Math.random()*6}))}
+  function draw(t){x.clearRect(0,0,c.width,c.height);for(const s of st){x.globalAlpha=.4+.6*Math.abs(Math.sin(t/1200+s.p));x.fillStyle="#fff";x.beginPath();x.arc(s.x,s.y,s.r,0,7);x.fill()}requestAnimationFrame(draw)}
+  addEventListener("resize",size);size();requestAnimationFrame(draw);
+})();
+
+// Yükleme: Android/Chrome'da kendi düğmemiz, iPhone'da ve diğerlerinde yol tarifi
+(function(){
+  const standalone=matchMedia("(display-mode: standalone)").matches||navigator.standalone;
+  if(standalone)return;
+  let dp=null;
+  addEventListener("beforeinstallprompt",e=>{e.preventDefault();dp=e;$("install").classList.remove("hide");$("andHint").classList.add("hide")});
+  $("install").onclick=async()=>{if(!dp)return;dp.prompt();await dp.userChoice;dp=null;$("install").classList.add("hide")};
+  addEventListener("appinstalled",()=>{$("install").classList.add("hide");$("andHint").classList.add("hide");$("iosHint").classList.add("hide")});
+  const ios=/iphone|ipad|ipod/i.test(navigator.userAgent);
+  (ios?$("iosHint"):$("andHint")).classList.remove("hide");
+})();
+
+try{history.replaceState(durum(),"")}catch(e){}
+addEventListener("popstate",e=>{
+  const s=e.state;if(!s)return;
+  geriYukleniyor=true;
+  try{
+    go(s.v);uyAc(s.u);
+    if(s.v==="yorum"){if(s.res)show(s.i,s.m);else{$("res").classList.add("hide");$("pick").classList.remove("hide")}}
+  }finally{geriYukleniyor=false}
+});
+try{const k=localStorage.getItem("burc");if(k!==null)show(+k,"gun")}catch(e){}
+if("serviceWorker" in navigator){
+  const kontrolluydu=!!navigator.serviceWorker.controller;
+  navigator.serviceWorker.register("sw.js").catch(()=>{});
+  // Yeni sürüm yüklenince sayfa bir kez kendini yeniler (eski sürümde takılı kalmasın)
+  navigator.serviceWorker.addEventListener("controllerchange",()=>{if(kontrolluydu)location.reload()});
+}
+</script>
+</body>
+</html>
